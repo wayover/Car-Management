@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rodzaj__c</fullName>
+    <externalId>false</externalId>
+    <label>Rodzaj</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sportowe</fullName>
+                <default>false</default>
+                <label>Sportowe</label>
+            </value>
+            <value>
+                <fullName>Rodzinne</fullName>
+                <default>false</default>
+                <label>Rodzinne</label>
+            </value>
+            <value>
+                <fullName>Dostawcze</fullName>
+                <default>false</default>
+                <label>Dostawcze</label>
+            </value>
+            <value>
+                <fullName>Inne</fullName>
+                <default>false</default>
+                <label>Inne</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

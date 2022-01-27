@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pojazd_Man_Lay</fullName>
+    <fields>Numer_seryjny__c</fields>
+    <fields>Marka__c</fields>
+    <fields>Model__c</fields>
+    <fields>Stan__c</fields>
+    <label>Pojazd Man Lay</label>
+</CompactLayout>
