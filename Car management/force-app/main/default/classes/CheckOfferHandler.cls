@@ -13,7 +13,7 @@ public with sharing class CheckOfferHandler {
             }
         }
 
-        List<Oferta__c> phisicalCheck = [SELECT Id FROM Oferta__c WHERE Pojazd__c IN :carList AND Stan__c = 'Fizyczna'];
+        List<Oferta__c> phisicalCheck = [SELECT Pojazd__c FROM Oferta__c WHERE Pojazd__c IN :carList AND Stan__c = 'Fizyczna'];
 
 
         Integer count;

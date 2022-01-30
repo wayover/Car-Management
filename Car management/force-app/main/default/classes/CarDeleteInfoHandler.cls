@@ -3,10 +3,12 @@ public with sharing class CarDeleteInfoHandler {
     public static void check(List<Pojazd__c> car){
         
 
-    List<Telemetry__c> telemetries=[SELECT Id from Telemetry__c where Pojazd__c IN :car];
+    if(car.size()>0){
+        List<Telemetry__c> telemetries=[SELECT Id from Telemetry__c where Pojazd__c IN :car];
+        delete telemetries;
+    }
 
-
-    delete telemetries;
+    
 
     List <Case> caseList= new List<Case>();
     
