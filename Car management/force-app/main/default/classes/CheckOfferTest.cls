@@ -1,35 +1,47 @@
+/**
+* @author kamil.wisniewski@accenture.com
+* @date 31/01/2022
+* @description The class is the test CheckOffer trigger
+ **/
+
 @isTest
 private class CheckOfferTest {
 
 
+
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 31/01/2022
+    * @description The method tests insert correct offers
+    **/
     @isTest static void testSinglePhysicalCar(){
 
-        List<Pojazd__c> cars=new List<Pojazd__C>();
-        List<Salon__c> salons = new List<Salon__c>();
-        List<Oferta__c> offers = new List<Oferta__c>();
+        List<Pojazd__c> vehicleList=new List<Pojazd__C>();
+        List<Salon__c> salonList = new List<Salon__c>();
+        List<Oferta__c> offerList = new List<Oferta__c>();
 
         for(Integer i=0;i<200;i++){
-            cars.add(new Pojazd__c(Name='CarName'+i,Numer_seryjny__c='serialNumber'+i));
+            vehicleList.add(new Pojazd__c(Name='CarName'+i,Numer_seryjny__c='serialNumber'+i));
         }
-        insert cars;
+        insert vehicleList;
 
-        Account ac=new Account(Name='Accname');
-        insert ac;
+        Account account=new Account(Name='Accname');
+        insert account;
 
 
         for(Integer i=0;i<200;i++){
-            salons.add(new Salon__c(name='SalonName'+i,Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=ac.id));
+            salonList.add(new Salon__c(name='SalonName'+i,Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=account.id));
         }
-        insert salons;
+        insert salonList;
 
 
         for(Integer i=0;i<200;i++){
         
-            offers.add(new Oferta__c(name='of1'+i,Pojazd__c=cars.get(i).id,Stan__c='Fizyczna',Salon__c=salons.get(i).id));
+            offerList.add(new Oferta__c(name='of1'+i,Pojazd__c=vehicleList.get(i).id,Stan__c='Fizyczna',Salon__c=salonList.get(i).id));
         }
 
         Test.startTest();
-        List<Database.SaveResult> result = Database.insert(offers);
+        List<Database.SaveResult> result = Database.insert(offerList);
         Test.stopTest();
 
 
@@ -40,25 +52,30 @@ private class CheckOfferTest {
     }
 
 
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 31/01/2022
+    * @description The method tests insert 2 phisical offer with the same vehicle
+    **/
     @isTest static void testDoublePhysicalCar(){
     
-        Pojazd__c car = new Pojazd__c(Name='CarName',Numer_seryjny__c='serialNumber');
-        insert car;
+        Pojazd__c vehicle = new Pojazd__c(Name='CarName',Numer_seryjny__c='serialNumber');
+        insert vehicle;
 
-        Account ac=new Account(Name='Accname');
-        insert ac;
+        Account account=new Account(Name='Accname');
+        insert account;
 
-        Salon__c salon= new Salon__c(name='SalonName',Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=ac.id);
+        Salon__c salon= new Salon__c(name='SalonName',Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=account.id);
         insert salon;
 
 
-        Oferta__c of1= new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);
-        insert of1;
+        Oferta__c correctOffer= new Oferta__c(name='offer',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
+        insert correctOffer;
 
-        Oferta__c of2= new Oferta__c(name='of2',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);
+        Oferta__c wrongOffer= new Oferta__c(name='of2',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
 
         Test.startTest();
-        Database.SaveResult result = Database.insert(of2,false);
+        Database.SaveResult result = Database.insert(wrongOffer,false);
         Test.stopTest();
 
         System.assertEquals(result.isSuccess(),false);
@@ -67,31 +84,35 @@ private class CheckOfferTest {
     
     }
 
-
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 31/01/2022
+    * @description The method tests insert 2 of the same offers
+    **/
     @isTest static void testSameCar(){
 
-        Pojazd__c car = new Pojazd__c(Name='CarName',Numer_seryjny__c='serialNumber');
-        insert car;
+        Pojazd__c vehicle = new Pojazd__c(Name='CarName',Numer_seryjny__c='serialNumber');
+        insert vehicle;
 
-        Account ac=new Account(Name='Accname');
-        insert ac;
+        Account account=new Account(Name='Accname');
+        insert account;
 
-        Salon__c salon= new Salon__c(name='SalonName',Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=ac.id);
+        Salon__c salon= new Salon__c(name='SalonName',Salon_status__c='open',Typ__c='Wszystkie',Wlasciciel__c=account.id);
         insert salon;
 
 
-        Oferta__c of1= new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);		
-        Oferta__c of2=new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);
+        Oferta__c correctOffer= new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);		
+        Oferta__c wrongOffer=new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
 
-        List <Oferta__c> offers = new List<Oferta__c>();
-        offers.add(of1);
-        offers.add(of2);
+        List <Oferta__c> offerList = new List<Oferta__c>();
+        offerList.add(correctOffer);
+        offerList.add(wrongOffer);
         Test.startTest();
-        List<Database.SaveResult> result = Database.insert(offers,false);
+        List<Database.SaveResult> result = Database.insert(offerList,false);
         Test.stopTest();
 
-        List<Oferta__c> offs =[SELECT Id from Oferta__c];
-        System.assert(offs.size()==1);
+        List<Oferta__c> offList =[SELECT Id from Oferta__c];
+        System.assert(offList.size()==1);
     }
 
 
