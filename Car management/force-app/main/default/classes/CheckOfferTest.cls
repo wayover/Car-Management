@@ -80,13 +80,14 @@ private class CheckOfferTest {
         insert salon;
 
 
-        Oferta__c of1= new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);
-        insert of1;
-		
-        Oferta__c of2=of1;
+        Oferta__c of1= new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);		
+        Oferta__c of2=new Oferta__c(name='of1',Pojazd__c=car.id,Stan__c='Fizyczna',Salon__c=salon.id);
 
+        List <Oferta__c> offers = new List<Oferta__c>();
+        offers.add(of1);
+        offers.add(of2);
         Test.startTest();
-        Database.SaveResult result = Database.insert(of2,false);
+        List<Database.SaveResult> result = Database.insert(offers,false);
         Test.stopTest();
 
         List<Oferta__c> offs =[SELECT Id from Oferta__c];
