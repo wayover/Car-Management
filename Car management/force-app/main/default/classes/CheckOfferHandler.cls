@@ -13,30 +13,36 @@ public with sharing class CheckOfferHandler {
      * @date 31/01/2022
      * @description The method checks if there is no other physical offer for the vehicle
      **/
-    public static void check(List<Oferta__c> inOffer){
+    public static void checkOffer(List<Oferta__c> inOfferList){
         
 
         List<Oferta__c> offerList= new List<Oferta__c>();
-        List<Id> vehicleList= new List<Id>();
+        List<Id> vehicleIdList= new List<Id>();
 
-        for(Oferta__c o: inOffer){
-            if(o.Stan__c == 'Fizyczna'){
-                offerList.add(o);
-                vehicleList.add(o.Pojazd__c);
+
+        if(inOfferList==null){
+            return;
+        }
+        
+
+        for(Oferta__c offer: inOfferList){
+            if(offer.Stan__c == Constant.PHYSICAL){
+                offerList.add(offer);
+                vehicleIdList.add(offer.Pojazd__c);
             }
         }
 
-        List<Oferta__c> phisicalCheck = [SELECT Pojazd__c FROM Oferta__c WHERE Pojazd__c IN :vehicleList AND Stan__c = 'Fizyczna'];
+        List<Oferta__c> phisicalCheck = [SELECT Pojazd__c FROM Oferta__c WHERE Pojazd__c IN :vehicleIdList AND Stan__c =:Constant.PHYSICAL];
 
 
         Integer count;
-        for(Oferta__C c:offerList){
+        for(Oferta__C offer:offerList){
             count=0;
 
-            for(Oferta__c c2:phisicalCheck){
+            for(Oferta__c phisicalOffer:phisicalCheck){
 
-                if(c.Pojazd__c==c2.Pojazd__c){
-                    c.addError('You can not set again this car as physical');
+                if(offer.Pojazd__c==phisicalOffer.Pojazd__c){
+                    offer.addError('You can not set again this car as physical');
                     break;
                 }else{
                     count++;
@@ -44,7 +50,7 @@ public with sharing class CheckOfferHandler {
             }
 
             if(count==phisicalCheck.size()){
-                phisicalCheck.add(c);
+                phisicalCheck.add(offer);
             }
 
         }

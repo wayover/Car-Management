@@ -37,7 +37,7 @@ private class CheckOfferTest {
 
         for(Integer i=0;i<200;i++){
         
-            offerList.add(new Oferta__c(name='of1'+i,Pojazd__c=vehicleList.get(i).id,Stan__c='Fizyczna',Salon__c=salonList.get(i).id));
+            offerList.add(new Oferta__c(name='of1'+i,Pojazd__c=vehicleList.get(i).id,Stan__c=Constant.PHYSICAL,Salon__c=salonList.get(i).id));
         }
 
         Test.startTest();
@@ -69,10 +69,10 @@ private class CheckOfferTest {
         insert salon;
 
 
-        Oferta__c correctOffer= new Oferta__c(name='offer',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
+        Oferta__c correctOffer= new Oferta__c(name='offer',Pojazd__c=vehicle.id,Stan__c=Constant.PHYSICAL,Salon__c=salon.id);
         insert correctOffer;
 
-        Oferta__c wrongOffer= new Oferta__c(name='of2',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
+        Oferta__c wrongOffer= new Oferta__c(name='of2',Pojazd__c=vehicle.id,Stan__c=Constant.PHYSICAL,Salon__c=salon.id);
 
         Test.startTest();
         Database.SaveResult result = Database.insert(wrongOffer,false);
@@ -101,8 +101,9 @@ private class CheckOfferTest {
         insert salon;
 
 
-        Oferta__c correctOffer= new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);		
-        Oferta__c wrongOffer=new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c='Fizyczna',Salon__c=salon.id);
+
+        Oferta__c correctOffer= new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c=Constant.PHYSICAL,Salon__c=salon.id);		
+        Oferta__c wrongOffer=new Oferta__c(name='of1',Pojazd__c=vehicle.id,Stan__c=Constant.PHYSICAL,Salon__c=salon.id);
 
         List <Oferta__c> offerList = new List<Oferta__c>();
         offerList.add(correctOffer);
@@ -113,6 +114,14 @@ private class CheckOfferTest {
 
         List<Oferta__c> offList =[SELECT Id from Oferta__c];
         System.assert(offList.size()==1);
+    }
+
+    @isTest static void testNullCar(){
+
+        Test.startTest();
+        CarDeleteInfoHandler.carDeleteCleanup(null);
+        Test.stopTest();
+
     }
 
 

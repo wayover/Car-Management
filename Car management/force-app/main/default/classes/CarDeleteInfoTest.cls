@@ -45,5 +45,13 @@ private class CarDeleteInfoTest {
         List<Telemetry__c> telemList = [Select Id from Telemetry__c];
         System.assert(telemList.size()==0);
     }
+
+
+    @isTest static void testNullVehicle(){
+
+        Test.startTest();
+        CheckOfferHandler.checkOffer(null);
+        Test.stopTest();
+    }
     
 }
