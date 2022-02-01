@@ -116,6 +116,12 @@ private class CheckOfferTest {
         System.assert(offList.size()==1);
     }
 
+
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 01/02/2022
+    * @description The method tests null insert 
+    **/
     @isTest static void testNullCar(){
 
         Test.startTest();

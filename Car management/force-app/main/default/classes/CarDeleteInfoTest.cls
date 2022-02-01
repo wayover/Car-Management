@@ -47,6 +47,12 @@ private class CarDeleteInfoTest {
     }
 
 
+
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 01/02/2022
+    * @description The method tests null delete 
+    **/
     @isTest static void testNullVehicle(){
 
         Test.startTest();
