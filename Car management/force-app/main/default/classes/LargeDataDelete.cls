@@ -1,8 +1,13 @@
 public  class LargeDataDelete implements Database.Batchable<sObject>{
 
 
+    String query;
+    LargeDataDelete(String query){
+        this.query=query;
+    }
+
     public Database.QueryLocator start(Database.BatchableContext bc) {
-        return Database.getQueryLocator([SELECT Id from Telemetry__C WHERE CreatedDate != LAST_N_DAYS:90]);
+        return Database.getQueryLocator(query);
     }
     public void execute(Database.BatchableContext bc, List<Telemetry__C> telemetryList){
         if(telemetryList!=null){
