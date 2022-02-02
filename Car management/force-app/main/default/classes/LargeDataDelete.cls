@@ -1,3 +1,8 @@
+/**
+* @author kamil.wisniewski@accenture.com
+* @date 02/02/2022
+* @description The Class deletes the data selected from the query
+**/
 public  class LargeDataDelete implements Database.Batchable<sObject>{
 
 

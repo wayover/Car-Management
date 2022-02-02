@@ -1,4 +1,10 @@
+/**
+* @author kamil.wisniewski@accenture.com
+* @date 02/02/2022
+* @description The class send mail with cases
+ **/
 public class SendMailFuture {
+    
     @future
     public static void sendmail(List<Id> inIdOfferList){
         
@@ -17,7 +23,7 @@ public class SendMailFuture {
         mailBody += String.join( stringList, ', ' );  
 
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        mail.setToAddresses(new string[] {'wisnia_198@wp.pl'});
+        mail.setToAddresses(new string[] {'test@test.pl'});
         mail.setSubject('New Offer/s');
         mail.setPlainTextBody(mailBody);
 

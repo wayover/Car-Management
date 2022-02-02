@@ -1,3 +1,8 @@
+/**
+* @author kamil.wisniewski@accenture.com
+* @date 02/02/2022
+* @description The class once a month calls the method to remove telemetry
+ **/
 public class ScheduledTelemetryCleaning implements Schedulable {
 
     public void execute(SchedulableContext ctx){
