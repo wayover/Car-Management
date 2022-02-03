@@ -14,7 +14,7 @@ public class CloseSalonHandler implements Queueable, Database.AllowsCallouts {
         List<Salon__c> salonCloseList = new List<Salon__c>();
 
         for(Salon__c salon:inSalonList){
-            if(salon.Salon_status__c=='Close'){
+            if(salon.Salon_status__c==Constant.close){
                 salonCloseList.add(salon);
             }
         }

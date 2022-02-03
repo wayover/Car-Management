@@ -11,8 +11,6 @@ trigger CloseSalon on Salon__c (after update) {
 
         Salon__c oldSalon= salonMap.get(salon.Id);
 
-        System.debug(oldSalon.Name);
-
          if(oldSalon.Salon_status__c!='Close' && salon.Salon_status__c=='Close'){
              salonList.add(salon);
          }
@@ -20,6 +18,6 @@ trigger CloseSalon on Salon__c (after update) {
 
     if(salonList.size()>0){
         CloseSalonHandler handlerClass = new CloseSalonHandler(salonList);
-        Id jobId = System.enqueueJob(handlerClass);
+        System.enqueueJob(handlerClass);
     }
 }

@@ -29,7 +29,6 @@ public with sharing class CloseSalonCaseUpdate implements Queueable, Database.Al
             for(Case failCase:caseList){
                 failCase.status='faild';
             }
-        System.debug(LoggingLevel.ERROR,'Bład połączenia');
         }
 
         update caseList;

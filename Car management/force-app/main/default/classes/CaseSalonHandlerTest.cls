@@ -6,6 +6,11 @@
 @isTest
 public class CaseSalonHandlerTest implements Database.AllowsCallouts {
 
+    /**
+    * @author kamil.wisniewski@accenture.com
+    * @date 02/02/2022
+    * @description The method with exaplme mock
+    **/
     public class ExampleCalloutMock implements HttpCalloutMock{
         public HttpResponse respond(HTTPRequest req){
             HttpResponse res = new HttpResponse();
@@ -29,9 +34,8 @@ public class CaseSalonHandlerTest implements Database.AllowsCallouts {
         Salon__c newSalon= new Salon__c(Name='Name',Salon_status__c='Open',Typ__c='Wszystkie',Wlasciciel__c=newAccount.id);
         insert newSalon;
         salonList.add(newSalon);
-        newSalon.Salon_status__c='Close';
+        newSalon.Salon_status__c=Constant.close;
         Test.startTest();
-        Test.setMock(HttpCalloutMock.class, new ExampleCalloutMock());
         update newSalon;
         Test.stopTest();
 		
@@ -60,10 +64,11 @@ public class CaseSalonHandlerTest implements Database.AllowsCallouts {
         Test.setMock(HttpCalloutMock.class, new ExampleCalloutMock());
         insert caseList;
         CloseSalonCaseUpdate caseUpdate = new CloseSalonCaseUpdate(caseList);
-        Id jobId = System.enqueueJob(caseUpdate);
+        System.enqueueJob(caseUpdate);
         Test.stopTest();
 
-        System.assert(jobId!=null);
+        List<Case> caseStatusList = [Select status from Case];
+        System.assert(caseStatusList[0].Status!=null);
     }
 
     /**

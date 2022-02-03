@@ -35,7 +35,7 @@ public class NewOfferTest {
         Test.stopTest();
 
         
-        System.assert(futureCount>0);
+        System.assert(futureCount==1);
     }
     /**
     * @author kamil.wisniewski@accenture.com

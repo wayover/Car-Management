@@ -24,7 +24,7 @@ public class LargeDataDeleteTest {
     String query = 'Select Id FROM Telemetry__c';
     Test.startTest();
     LargeDataDelete largeData = new LargeDataDelete(query);
-    Id largeDataDeleteId = Database.executeBatch(largeData);
+    Database.executeBatch(largeData);
     Test.stopTest();
 
     List<Telemetry__C> checkTelemetryList= [SELECT Id from Telemetry__c];
