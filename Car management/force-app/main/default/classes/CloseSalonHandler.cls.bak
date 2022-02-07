@@ -10,7 +10,7 @@ public class CloseSalonHandler implements Queueable, Database.AllowsCallouts {
         if(inSalonList==null){
             return;
         }
-        
+
         List<Salon__c> salonCloseList = new List<Salon__c>();
 
         for(Salon__c salon:inSalonList){
@@ -32,7 +32,7 @@ public class CloseSalonHandler implements Queueable, Database.AllowsCallouts {
 
         if(!Test.isRunningTest()){
             CloseSalonCaseUpdate caseUpdate = new CloseSalonCaseUpdate(caseList);
-            System.enqueueJob(caseUpdate);
+            Id jobId = System.enqueueJob(caseUpdate);
         }
     }
 

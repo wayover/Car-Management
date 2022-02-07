@@ -6,7 +6,7 @@
 public  class LargeDataDelete implements Database.Batchable<sObject>{
 
 
-    String query;
+    private String query;
     LargeDataDelete(String query){
         this.query=query;
     }
@@ -21,7 +21,6 @@ public  class LargeDataDelete implements Database.Batchable<sObject>{
 
     }
     public void finish(Database.BatchableContext bc){
-        System.debug('telemeries more than three months old have been removed');
     }
 
 }
